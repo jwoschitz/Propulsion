@@ -1,0 +1,159 @@
+body {
+	background-color: #f4f4f4;
+	font-size: 14px;
+	font-family: Lucida Grande,Verdana,Geneva,Sans-serif;
+	line-height: 1.2em;
+}
+
+h3 {
+	color: black;
+	font-family: Verdana,Arial,Helvetica,sans-serif;
+	margin-bottom: 10px;
+}
+
+p {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.italic {
+	font-style: italic;
+}
+
+.bold {
+	font-weight: bold;
+}
+
+.red {
+	color: #b87676;
+}
+
+#content ul {
+	list-style-type: disc;
+	margin-left: 20px;
+}
+
+#sidebarWrapper {
+	height: 100%;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+}
+
+#sidebarButton {
+	background-image: url('../images/hide.png');
+	width: 20px;
+	height: 40px;
+	float: left;
+}
+
+#sidebar {
+	background-color: #4B4B4B;
+	height: 100%;
+	width: 200px;
+	float: left;
+	overflow-y: auto;
+	overflow-x: hidden;
+	-moz-box-shadow: 3px 0px 3px #333;
+	-webkit-box-shadow: 3px 0px 3px #333;
+	box-shadow: 3px 0px 3px #333;
+}
+
+#content {
+	margin-left: 225px;
+	margin-right: 10px;
+	margin-top: 10px;
+}
+
+#navmenu {
+	color: #DCDBDA;
+	width: 200px;
+	font-family: Lucida Grande,Verdana,Geneva,Sans-serif;
+	font-size: 12px;
+	line-height: 1.2em;
+}
+
+#navmenu li {
+	cursor: pointer;
+}
+
+#navmenu ul {
+	padding-left: 10px;
+}
+
+#navmenu .title {
+	background-color: #63605E;
+	padding: 2px;
+	padding-left: 5px;
+	color: #B8B6B4;
+	background-image: url('../images/gradient1.png');
+}
+
+#navmenu .submenu {
+	border-width: 1px;
+	border-color: black;
+	border-style: solid;
+	background-color: #3b3938;
+}
+
+#navmenu > .submenu .submenu {
+	margin: 5px;
+	margin-left: 0px;
+}
+
+.usage {
+	background-color: #c5caff;
+	font-family: 'Courier New',monospace;
+	padding: 10px;
+	margin: 10px;
+	border-color: #9b9fc9;
+	border-width: 2px;
+	border-style: solid;
+}
+
+.parameters, .property {
+	background-color: #e2c5ff;
+	padding: 10px;
+	margin: 10px;
+	border-color: #ae97c4;
+	border-width: 2px;
+	border-style: solid;
+}
+
+.return {
+	background-color: #c5ffc6;
+	padding: 10px;
+	margin: 10px;
+	border-color: #94c095;
+	border-width: 2px;
+	border-style: solid;
+}
+
+.example {
+	background-color: #f6ffc5;
+	padding: 10px;
+	margin: 10px;
+	border-color: #faff7e;
+	border-width: 2px;
+	border-style: solid;
+}
+
+.center {
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+ol {
+	list-style-type: decimal;
+	padding-left: 50px;
+}
+
+pre {
+	word-wrap: break-word;
+	white-space: normal;
+}
+
+.syntaxhighlighter  {
+	white-space: pre;
+}

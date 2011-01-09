@@ -1,0 +1,15 @@
+<h2>loop.methods</h2>
+
+<p>Method invokation is one of the key features of Propulsion. Each time a loop is executed (a tick), Propulsion goes through all registered objects, and invokes their methods if they exist.</p>
+<p>The names and order in which methods are invoked is customizable by modifying the loop.methods array.</p>
+<p>The default construction of the loop.methods array is:</p>
+
+<div class="example">
+<pre class="brush: js">
+loop.methods = ['beginTick','ALARMS','tick','draw','endTick'];
+</pre>
+</div>
+
+<p>The ALARMS string will not invoke methods called ALARMS. Instead, all alarms will be decreased by one. If the alarm is zero after the decrease, Propulsion will fire it. If you modify the loop.methods array, please make sure to include ALARMS or alarms will not work.</p>
+<p>Functions are also allowed as members of the array. When Propulsion comes across the function, it will invoke it. If the function returns a string, Propulsion will invoke methods with that name. This can be used to create 
+methods for specific events.</p>

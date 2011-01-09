@@ -1,0 +1,22 @@
+<h2>SPRITEOBJECT.draw</h2>
+
+<div class="usage">
+	SPRITEOBJECT.draw(x,y,subimg,angle);
+</div>
+
+<div class="parameters">
+	<p>x: [number] x coordinate to draw the sprite at</p>
+	<p>y: [number] y coordinate to draw the sprite at</p>
+	<p>subimg: (Optional) [number] the subimage you wish to draw (for sprite strips). 0 is the first subimage.</p>
+	<p>angle: (Optional) [number] angle in radians to rotate the sprite</p>
+</div>
+
+<div class="return">
+	[object] The SPRITEOBJECT
+</div>
+
+<div class="example">
+	<pre class="brush: js">
+spr.ball = new Sprite('sprites/ball.png',2,15,15);
+spr.ball.draw(122,253,1,0);</pre>
+</div>

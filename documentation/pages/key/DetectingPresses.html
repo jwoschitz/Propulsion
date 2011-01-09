@@ -1,0 +1,61 @@
+<h2>Detecting Key Presses</h2>
+
+The key object contains many objects that store the state of each key. Each of these objects contains a down, pressed, and up variable with a boolean value.
+
+<pre class="brush: js">
+// The layout of all the key objects
+var key = {
+	KEYNAME = {
+		down: [boolean], // Key was pressed down since the end of the last tick
+		pressed: [boolean], // Key is currently down
+		up: [boolean] // Key was released since the end of the last tick
+	}
+};
+</pre>
+
+The available keys are:
+<ul>
+	<li>Letters (a-z)</li>
+	<li>0-9</li>
+	<li>space</li>
+	<li>enter</li>
+	<li>tab</li>
+	<li>escape</li>
+	<li>backspace</li>
+	<li>shift</li>
+	<li>control</li>
+	<li>alt</li>
+	<li>capsLock</li>
+	<li>numLock</li>
+	<li>left</li>
+	<li>right</li>
+	<li>up</li>
+	<li>down</li>
+	<li>insert</li>
+	<li>del</li>
+	<li>home</li>
+	<li>end</li>
+	<li>pageUp</li>
+	<li>pageDown</li>
+	<li>f1-f12</li>
+</ul>
+
+<div class="example">
+<pre class="brush: js">
+if (key.a.down) {
+	alert('a pressed');
+}
+
+if (key.space.pressed) {
+	alert('space bar is currently pressed');
+}
+
+if (key.f3.up) {
+	alert('f3 key released');
+}
+
+if (key[3].down) {
+	alert('3 key pressed');
+}
+</pre>
+</div>

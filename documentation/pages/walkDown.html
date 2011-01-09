@@ -1,0 +1,27 @@
+<h2>walkDown</h2>
+
+<p>The walkDown function is used to recursively loop down the prototype chain, and invoke a function for every registered heir of an object (including the object itself), or return an array containing all registerd objects down the prototype chain.</p>
+
+<div class="usage">
+walkDown(obj,callback);
+</div>
+
+<div class="parameters">
+<p>obj: The object in which the function should walk down the prototype chain from.</p>
+<p>callback (Optional):
+	<ul>
+		<li>[function] If the parameter passed is a function, the function is invoked so that the "this" variable within the function and the first argument will be bound to an object in the prototype chain.</li>
+		<li>[array] If the parameter passed is an array, any objects found while walking down the prototype chain will be added to the end of the array.</li>
+		<li>[undefined] If no parameter is passed, the function returns a new array with all the objects found while walking down.</li>
+	</ul>
+</p>
+</div>
+
+<div class="return">
+<p>
+<ul>
+	<li>[array] If an array or nothing was passed for the callback parameter, the array is returned.</li>
+	<li>[boolean] If a function was passed for callback, then a value of true will be returned.</li>
+</ul>
+</p>
+</div>

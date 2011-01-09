@@ -1,0 +1,48 @@
+<h2>Mouse Click and Scroll Wheel Detection</h2>
+
+<p>The <span class="italic">mouse</span> object contains the left, middle, right and wheel objects. The mouse.left, mouse.middle, and mouse.right objects contain the boolean variables <span class="italic">down, pressed, and up</span>.</p>
+
+<p>mouse.<span class="italic">button</span>.down: The button was pressed down since the end of the last tick. This is set back to false at the end of each tick.<br />
+mouse.<span class="italic">button</span>.up: The button was released since the end of the last tick. This is set back to false at the end of each tick.<br />
+mouse.<span class="italic">button</span>.pressed: The button is currently pressed. This is set to false when the mouse button is released.</p>
+
+The mouse.wheel object contains the variables up and down that are set to true when a "scroll" was detected since the last tick.
+
+<p>
+mouse.wheel.up: The mouse wheel was scrolled up. This is set to false at the end of each loop.<br />
+mouse.wheel.down: The mouse wheel was scrolled down. This is set to false at the end of each loop.
+</p>
+
+<div class="example">
+<pre class="brush: js">
+// The layout of the mouse object
+
+var mouse = {
+	x: [number],
+	y: [number],
+	
+	left: {
+		down: [boolean],
+		pressed: [boolean],
+		up: [boolean]
+	},
+	
+	middle: {
+		down: [boolean],
+		pressed: [boolean],
+		up: [boolean]
+	},
+	
+	right: {
+		down: [boolean],
+		pressed: [boolean],
+		up: [boolean]
+	},
+	
+	wheel: {
+		up: [boolean],
+		down: [boolean]
+	}
+};
+</pre>
+</div>

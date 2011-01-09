@@ -1,0 +1,25 @@
+<h2>MASK</h2>
+
+<p>[array] Masks are an array of points. The points are connected in order, which forms a shape that will be used in collision detection. 
+The shape formed by the points must be convex.</p>
+
+<p>A point is an array with a length of two, with the first element representing the x coordinate of the point 
+and the second element representing the y coordinate of the point. The points are relative coordinates. When a collision detection function is called, the 
+points forming the mask are measured relative from the passed point.</p>
+
+<p>A common task is creating a mask to overlay a sprite. Here is an example of making a mask for a sprite.</p>
+
+<p><img src="images/mask.png" alt="Example" class="center" /></p>
+<p><img src="images/mask_enlarged.png" alt="Example Enlarged" class="center" /></p>
+
+<p>The blue line in the enlarged image represents the origin of the sprite (see new Sprite). The red squares represent points that will be used for the mask. 
+Remember that the y axis increases in the "south" direction.</p>
+
+<div class="example">
+<pre class="brush:js">
+spr.pentagon = new Sprite('images/pentagon.png',1,18,33);
+var mask = [[-11,0],[-17,-20],[0,-32],[17,-20],[11,0]];
+</pre>
+</div>
+
+<p>See also: SPRITEOBJECT.mask</p>

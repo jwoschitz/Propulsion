@@ -1,0 +1,13 @@
+<h2>draw.depth</h2>
+
+<div class="usage">
+<p>draw.depth(obj,depth);</p>
+</div>
+
+<div class="parameters">
+<p>obj: [object] The object to set the depth of.</p>
+<p>depth: [number] The depth to set the object to.</p>
+</div>
+
+<p>Registered objects with a higher depth property have their methods invoked last. Objects with a higher depth property will thus most likely have their draw functions invoked last, and will appear "above" other drawings.</p>
+<p>Note: The new depths will only take effect after the currently running set of methods have finished running.</p>

@@ -950,10 +950,6 @@ var PP = {
 									
 									if (thisAlarm.time <= 0) {
 										thisAlarm.time = null;
-										
-										// Remove the alarm from the alarm list so the garbage collecter will be able to nab it
-										delete PP.Alarm.list[k];
-										
 										thisAlarm.callback();
 									}
 								}
@@ -1049,14 +1045,14 @@ var PP = {
 			return obj;
 		},
 		
-		resolve: function(obj) {
+		update: function(obj) {
 			obj.x += obj.hVelocity;
 			obj.y += obj.vVelocity;
 			
 			return Math.atan2(obj.vVelocity,obj.hVelocity);
 		},
 		
-		jump: function(angle,distance) {
+		jump: function(obj,angle,distance) {
 			obj.x += Math.polarToRectX(angle,distance);
 			obj.y += Math.polarToRectY(angle,distance);
 			

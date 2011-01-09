@@ -1,0 +1,23 @@
+<h2>new Sprite</h2>
+
+<div class="usage">
+	new Sprite(url,subimg,xorig,yorig);
+</div>
+
+<div class="parameters">
+	<p>url: [string] The url to load the sprite from</p>
+	<p>subimg: [number] The number of subimages in the image (So that sprite strips can be seperated)</p>
+	<p>xorig: [number] The location to set the sprite's origin; Also the center of rotation</p>
+	<p>yorig: [number] The location to set the sprite's origin; Also the center of rotation</p>
+</div>
+
+<div class="return">
+	[object] The newly created SPRITEOBJECT.
+</div>
+
+<div class="example">
+	<pre class="brush: js">
+spr.ball = new Sprite('sprites/ball.png',2,15,15);</pre>
+</div>
+
+<p>Note: The sprite doesn't actually begin loading until the load function is called.</p>

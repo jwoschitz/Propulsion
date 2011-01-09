@@ -1,0 +1,232 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<link rel="stylesheet" href="css/reset.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/syntaxHighlighter/shCore.css" />
+	<link rel="stylesheet" href="css/syntaxHighlighter/shThemeDefault.css" />
+</head>
+<body>
+<div id="sidebarWrapper">
+	<div id="sidebar">
+		<ul id="navmenu">
+			<li onclick="loadPage('The_Global_Object');">
+				<div class="title"><span class="red bold">The Global Object</span></div>
+			</li>
+			
+			<li>
+				<div class="title">Alarm</div>
+				<ul>
+					<li>
+						<div class="title">ALARMOBJECT</div>
+						<ul>
+							<li class="item" onclick="loadPage('Alarm/ALARMOBJECT/time');">time</li>
+							<li class="item" onclick="loadPage('Alarm/ALARMOBJECT/stop');">stop</li>
+						</ul>
+					</li>
+					<li class="item" onclick="loadPage('Alarm/new_Alarm');">new Alarm</li>
+				</ul>
+			</li>
+			
+			<li onclick="loadPage('angles');">
+				<div class="title">Angles</div>
+			</li>
+			
+			<li>
+				<div class="title">Sound</div>
+				<ul>
+					<li>
+						<div class="title">SOUNDOBJECT</div>
+						<ul>
+							<li class="item" onclick="loadPage('Sound/SOUNDOBJECT/currentTime');">currentTime</li>
+							<li class="item" onclick="loadPage('Sound/SOUNDOBJECT/duration');">duration</li>
+							<li class="item" onclick="loadPage('Sound/SOUNDOBJECT/ended');">ended</li>
+							<li class="item" onclick="loadPage('Sound/SOUNDOBJECT/muted');">muted</li>
+							<li class="item" onclick="loadPage('Sound/SOUNDOBJECT/pause');">pause</li>
+							<li class="item" onclick="loadPage('Sound/SOUNDOBJECT/paused');">paused</li>
+							<li class="item" onclick="loadPage('Sound/SOUNDOBJECT/play');">play</li>
+							<li class="item" onclick="loadPage('Sound/SOUNDOBJECT/playbackRate');">playbackRate</li>
+							<li class="item" onclick="loadPage('Sound/SOUNDOBJECT/played');">played</li>
+							<li class="item" onclick="loadPage('Sound/SOUNDOBJECT/volume');">volume</li>
+						</ul>
+					</li>
+					<li class="item" onclick="loadPage('Sound/new_Sound');">new Sound</li>
+				</ul>
+			</li>
+			
+			<li>
+				<div class="title">collision</div>
+				<ul>
+					<li class="item" onclick="loadPage('collision/line');">line</li>
+					<li class="item" onclick="loadPage('collision/masks');">masks</li>
+					<li class="item" onclick="loadPage('collision/point');">point</li>
+					<li class="item" onclick="loadPage('collision/rectangle');">rectangle</li>
+				</ul>
+			</li>
+			
+			<li>
+				<div class="title">draw</div>
+				<ul>
+					<li class="item" onclick="loadPage('draw/alpha');">alpha</li>
+					<li class="item" onclick="loadPage('draw/circle');">circle</li>
+					<li class="item" onclick="loadPage('draw/clear');">clear</li>
+					<li class="item" onclick="loadPage('draw/color');">color</li>
+					<li class="item" onclick="loadPage('draw/cursor');">cursor</li>
+					<li class="item" onclick="loadPage('draw/depth');">depth</li>
+					<li class="item" onclick="loadPage('draw/font');">font</li>
+					<li class="item" onclick="loadPage('draw/line');">line</li>
+					<li class="item" onclick="loadPage('draw/lineWidth');">lineWidth</li>
+					<li class="item" onclick="loadPage('draw/rectangle');">rectangle</li>
+					<li class="item" onclick="loadPage('draw/text');">text</li>
+					<li class="item" onclick="loadPage('draw/textHalign');">textHalign</li>
+					<li class="item" onclick="loadPage('draw/textValign');">textValign</li>
+					<li class="item" onclick="loadPage('draw/triangle');">triangle</li>
+				</ul>
+			</li>
+			
+			<li onclick="loadPage('init');">
+				<div class="title">init</div>
+			</li>
+			
+			<li>
+				<div class="title">key</div>
+				<ul>
+					<li class="item" onclick="loadPage('key/detectingPresses');">Detecting Presses</li>
+				</ul>
+			</li>
+			
+			<li>
+				<div class="title">load</div>
+				<ul>
+					<li class="item" onclick="loadPage('load/load_function');">Load Function</li>
+					<li class="item" onclick="loadPage('load/completed');">completed</li>
+					<li class="item" onclick="loadPage('load/total');">total</li>
+				</ul>
+			</li>
+			
+			<li>
+				<div class="title">loop</div>
+				<ul>
+					<li class="item" onclick="loadPage('loop/active');">active</li>
+					<li class="item" onclick="loadPage('loop/beget');">beget</li>
+					<li class="item" onclick="loadPage('loop/rate');">rate</li>
+					<li class="item" onclick="loadPage('loop/register');">register</li>
+					<li class="item" onclick="loadPage('loop/remove');">remove</li>
+					<li class="item" onclick="loadPage('loop/room');">room</li>
+					<li class="item" onclick="loadPage('loop/methods');">methods</li>
+				</ul>
+			</li>
+			
+			<li onclick="loadPage('mask_spec');">
+				<div class="title">Mask Specification</div>
+			</li>
+			
+			<li>
+				<div class="title">Math</div>
+				<ul>
+					<li class="item" onclick="loadPage('Math/choose');">choose</li>
+					<li class="item" onclick="loadPage('Math/radToDeg');">radToDeg</li>
+					<li class="item" onclick="loadPage('Math/degToRad');">degToRad</li>
+					<li class="item" onclick="loadPage('Math/pointDirection');">pointDirection</li>
+					<li class="item" onclick="loadPage('Math/pointDistance.html')";>pointDistance</li>
+					<li class="item" onclick="loadPage('Math/polarToRectX');">polarToRectX</li>
+					<li class="item" onclick="loadPage('Math/polarToRectY');">polarToRectY</li>
+				</ul>
+			</li>
+			
+			<li>
+				<div class="title">mouse</div>
+				<ul>
+					<li class="item" onclick="loadPage('mouse/x');">x</li>
+					<li class="item" onclick="loadPage('mouse/y');">y</li>
+					<li class="item" onclick="loadPage('mouse/ClickDetection');">Click & Wheel Detection</li>
+				</ul>
+			</li>
+			
+			<li>
+				<div class="title">Object Properties</div>
+				<ul>
+					<li class="item" onclick="loadPage('Object_Properties/depth');">depth</li>
+					<li class="item" onclick="loadPage('Object_Properties/proto');">proto</li>
+					<li class="item" onclick="loadPage('Object_Properties/persistant');">persistant</li>
+					<li class="item" onclick="loadPage('Object_Properties/registered');">registered</li>
+					<li class="item" onclick="loadPage('Object_Properties/x');">x</li>
+					<li class="item" onclick="loadPage('Object_Properties/y');">y</li>
+					<li class="item" onclick="loadPage('Object_Properties/hVelocity');">hVelocity</li>
+					<li class="item" onclick="loadPage('Object_Properties/vVelocity');">vVelocity</li>
+				</ul>
+			</li>
+			
+			<li>
+				<div class="title">physics</div>
+				<ul>
+					<li class="item" onclick="loadPage('physics/accelerate');">accelerate</li>
+					<li class="item" onclick="loadPage('physics/jump');">jump</li>
+					<li class="item" onclick="loadPage('physics/update');">update</li>
+					<li class="item" onclick="loadPage('physics/velocity');">velocity</li>
+				</ul>
+			</li>
+			
+			<li onclick="loadPage('Resource_Objects');">
+				<div class="title">Resource Objects</div>
+			</li>
+			
+			<li>
+				<div class="title">Sprite</div>
+				<ul>
+					<li>
+						<div class="title">SPRITEOBJECT</div>
+						<ul>
+							<li class="item" onclick="loadPage('Sprite/SPRITEOBJECT/draw');">draw</li>
+							<li class="item" onclick="loadPage('Sprite/SPRITEOBJECT/mask');">mask</li>
+							<li class="item" onclick="loadPage('Sprite/SPRITEOBJECT/nextFrame');">nextFrame</li>
+						</ul>
+					</li>
+					<li class="item" onclick="loadPage('Sprite/new_Sprite');">new Sprite</li>
+					<li class="item" onclick="loadPage('Sprite/Sprite_Strips');">Sprite Strips</li>
+				</ul>
+			</li>
+			
+			<li>
+				<div class="title">view</div>
+				<ul>
+					<li class="item" onclick="loadPage('view/height');">height</li>
+					<li class="item" onclick="loadPage('view/width');">width</li>
+					<li class="item" onclick="loadPage('view/x');">x</li>
+					<li class="item" onclick="loadPage('view/y');">y</li>
+				</ul>
+			</li>
+			
+			<li onclick="loadPage('walkDown');">
+				<div class="title">walkDown</div>
+			</li>
+		</ul>
+	</div>
+	<div id="sidebarButton"></div>
+</div>
+
+<div id="content">
+
+</div>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/syntaxHighlighter/shCore.js"></script>
+<script type="text/javascript" src="js/syntaxHighlighter/shBrushJScript.js"></script>
+<script type="text/javascript" src="js/menuPlugin.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-8592428-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</body>
+</html>
