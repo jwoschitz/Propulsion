@@ -1218,7 +1218,7 @@ PP.Alarm.prototype.stop = function() {
 	}
 })();
 
-PP.Sprite.prototype.draw = function(x,y,subimg,angle,drawWidth,drawHeight) {
+PP.Sprite.prototype.draw = function(x,y,subimg,angle,hScale,vScale) {
 	if (subimg === undefined) {
 		subimg = 0;
 	}
@@ -1238,16 +1238,23 @@ PP.Sprite.prototype.draw = function(x,y,subimg,angle,drawWidth,drawHeight) {
 		PP.draw.buffer.ctx.translate(-xx,-yy);
 	}
 	
-	if (drawWidth === undefined) {
-		drawWidth = subWidth;
-	}
+	var drawWidth = Math.abs(hScale)*subWidth,
+		drawHeight = Math.abs(vScale)*height;
 	
-	if (drawHeight === undefined) {
-		drawHeight = height;
-	}
+	xx -= this.xorig*Math.abs(hScale);
+	yy -= this.yorig*Math.abs(vScale);
 	
-	xx -= this.xorig;
-	yy -= this.yorig;
+	if (hScale < 0 && vScale < 0) {
+		xx = -xx-drawWidth;
+		yy = -yy-drawHeight;
+		PP.draw.buffer.ctx.scale(-1,-1);
+	} else if (hScale < 0) {
+		xx = -xx-drawWidth;
+		PP.draw.buffer.ctx.scale(-1,1);
+	} else if (vScale < 0) {
+		yy = -yy-drawHeight;
+		PP.draw.buffer.ctx.scale(1,-1);
+	}
 	
 	PP.draw.buffer.ctx.drawImage(imgObj,subWidth*subimg,0,subWidth,height,xx,yy,drawWidth,drawHeight);
 	
