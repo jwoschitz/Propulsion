@@ -265,7 +265,7 @@ var PP = {
 					proj2 = project(shape2,axes[i]);
 					
 					// Check for overlaps between the projections
-					if (!((proj1.min > proj2.min && proj1.min < proj2.max) || (proj1.max > proj2.min && proj1.max < proj2.max) || (proj2.min > proj1.min && proj2.min < proj1.max) || (proj2.max > proj1.min && proj2.max < proj1.max))) {
+					if (!((proj1.min >= proj2.min && proj1.min <= proj2.max) || (proj1.max >= proj2.min && proj1.max <= proj2.max) || (proj2.min >= proj1.min && proj2.min <= proj1.max) || (proj2.max >= proj1.min && proj2.max <= proj1.max))) {
 						return false;
 					}
 				}
@@ -296,25 +296,21 @@ var PP = {
 	},
 	
 	draw: {
-		// Holds data on the buffer and display canvases
-		display: {},
-		buffer: {},
-		
 		get alpha() {
-			return PP.draw.buffer.ctx.globalAlpha;
+			return PP.draw.displayCanvas.ctx.globalAlpha;
 		},
 		
 		set alpha(value) {
-			PP.draw.buffer.ctx.globalAlpha = value;
+			PP.draw.displayCanvas.ctx.globalAlpha = value;
 			return value;
 		},
 		
 		get color() {
-			return PP.draw.buffer.ctx.fillStyle;
+			return PP.draw.displayCanvas.ctx.fillStyle;
 		},
 		
 		set color(value) {
-			var ctx = PP.draw.buffer.ctx;
+			var ctx = PP.draw.displayCanvas.ctx;
 			
 			ctx.fillStyle = value;
 			ctx.strokeStyle = value;
@@ -323,63 +319,63 @@ var PP = {
 		},
 		
 		get cursor() {
-			return PP.draw.display.element.style.cursor;
+			return PP.draw.displayCanvas.style.cursor;
 		},
 		
 		set cursor(value) {
-			PP.draw.display.element.style.cursor = value;
+			PP.draw.displayCanvas.style.cursor = value;
 			return value;
 		},
 		
 		get font() {
-			return PP.draw.buffer.ctx.font;
+			return PP.draw.displayCanvas.ctx.font;
 		},
 		
 		set font(value) {
-			PP.draw.buffer.ctx.font = value;
+			PP.draw.displayCanvas.ctx.font = value;
 			return value;
 		},
 		
 		get lineWidth() {
-			return PP.draw.buffer.ctx.lineWidth;
+			return PP.draw.displayCanvas.ctx.lineWidth;
 		},
 		
 		set lineWidth(value) {
-			PP.draw.buffer.ctx.lineWidth = value;
+			PP.draw.displayCanvas.ctx.lineWidth = value;
 			return value;
 		},
 		
 		get lineCap() {
-			return PP.draw.buffer.ctx.lineCap
+			return PP.draw.displayCanvas.ctx.lineCap
 		},
 		
 		set lineCap(value) {
-			PP.draw.buffer.ctx.lineCap = value;
+			PP.draw.displayCanvas.ctx.lineCap = value;
 			return value;
 		},
 		
 		get textHalign() {
-			return PP.draw.buffer.ctx.textAlign;
+			return PP.draw.displayCanvas.ctx.textAlign;
 		},
 		
 		set textHalign(value) {
-			PP.draw.buffer.ctx.textAlign = value;
+			PP.draw.displayCanvas.ctx.textAlign = value;
 			return value;
 		},
 		
 		get textValign() {
-			return PP.draw.buffer.ctx.textBaseline;
+			return PP.draw.displayCanvas.ctx.textBaseline;
 		},
 		
 		set textValign(value) {
-			PP.draw.buffer.ctx.textBaseline = value;
+			PP.draw.displayCanvas.ctx.textBaseline = value;
 			return value;
 		},
 		
 		clear: function(ctx) {
-			ctx = ctx || PP.draw.buffer.ctx;
-			/*PP.draw.buffer.ctx.clearRect(0,0,PP.view.width,PP.view.height);
-			PP.draw.display.ctx.clearRect(0,0,PP.view.width,PP.view.height);*/
+			ctx = ctx || PP.draw.displayCanvas.ctx;
+			/*PP.draw.displayCanvas.ctx.clearRect(0,0,PP.view.width,PP.view.height);
+			PP.draw.displayCanvas.ctx.clearRect(0,0,PP.view.width,PP.view.height);*/
 			ctx.clearRect(0,0,PP.view.width,PP.view.height);
 		},
 		
@@ -391,13 +387,13 @@ var PP = {
 			x -= PP.view.x;
 			y -= PP.view.y;
 			
-			PP.draw.buffer.ctx.beginPath();
-			PP.draw.buffer.ctx.arc(x,y,radius,0,6.283185307179586,false);
+			PP.draw.displayCanvas.ctx.beginPath();
+			PP.draw.displayCanvas.ctx.arc(x,y,radius,0,6.283185307179586,false);
 			
 			if (stroke) {
-				PP.draw.buffer.ctx.stroke();
+				PP.draw.displayCanvas.ctx.stroke();
 			} else {
-				PP.draw.buffer.ctx.fill();
+				PP.draw.displayCanvas.ctx.fill();
 			}
 		},
 		
@@ -420,10 +416,10 @@ var PP = {
 			x2 -= PP.view.x+0.5;
 			y2 -= PP.view.y+0.5;
 			
-			PP.draw.buffer.ctx.beginPath();
-			PP.draw.buffer.ctx.moveTo(x1,y1);
-			PP.draw.buffer.ctx.lineTo(x2,y2);
-			PP.draw.buffer.ctx.stroke();
+			PP.draw.displayCanvas.ctx.beginPath();
+			PP.draw.displayCanvas.ctx.moveTo(x1,y1);
+			PP.draw.displayCanvas.ctx.lineTo(x2,y2);
+			PP.draw.displayCanvas.ctx.stroke();
 		},
 		
 		rectangle: function(x1,y1,width,height,stroke,color) {
@@ -436,9 +432,9 @@ var PP = {
 				y1 -= PP.view.y;
 						
 				if (stroke) {
-					PP.draw.buffer.ctx.strokeRect(x1,y1,width,height);
+					PP.draw.displayCanvas.ctx.strokeRect(x1,y1,width,height);
 				} else {
-					PP.draw.buffer.ctx.fillRect(x1,y1,width,height);
+					PP.draw.displayCanvas.ctx.fillRect(x1,y1,width,height);
 				}
 			}
 		},
@@ -449,15 +445,15 @@ var PP = {
 			
 			if (stroke) {
 				if (maxWidth !== undefined) {
-					PP.draw.buffer.ctx.strokeText(text,x,y,maxWidth);
+					PP.draw.displayCanvas.ctx.strokeText(text,x,y,maxWidth);
 				} else {
-					PP.draw.buffer.ctx.strokeText(text,x,y);
+					PP.draw.displayCanvas.ctx.strokeText(text,x,y);
 				}
 			} else {
 				if (maxWidth !== undefined) {
-					PP.draw.buffer.ctx.fillText(text,x,y,maxWidth);
+					PP.draw.displayCanvas.ctx.fillText(text,x,y,maxWidth);
 				} else {
-					PP.draw.buffer.ctx.fillText(text,x,y);
+					PP.draw.displayCanvas.ctx.fillText(text,x,y);
 				}
 			}
 		},
@@ -467,7 +463,7 @@ var PP = {
 				PP.draw.color = color;
 			}
 			
-			var ctx = PP.draw.buffer.ctx;
+			var ctx = PP.draw.displayCanvas.ctx;
 			
 			x1 -= PP.view.x;
 			y1 -= PP.view.y;
@@ -490,7 +486,7 @@ var PP = {
 		}
 	},
 	
-	init: function(id,width,height) {
+	init: function(id,displayWidth,displayHeight) {
 		if (navigator.userAgent.indexOf('Opera') !== -1) {
 			PP.initisOpera = true;
 		} else {
@@ -498,23 +494,19 @@ var PP = {
 		}
 
 		var canvas = document.getElementById(id);
-		PP.draw.display.element = canvas;
+		canvas.ctx = canvas.getContext('2d');
+		PP.draw.displayCanvas = canvas;
 		
-		if (width === undefined || height === undefined) {
-			PP.draw.display.width = canvas.getAttribute('width');
-			PP.draw.display.height = canvas.getAttribute('height');
-		} else {
-			PP.draw.display.width = width;
-			PP.draw.display.height = height;
+		if (displayWidth !== undefined) {
+			canvas.style.width = displayWidth+'px';
 		}
 		
-		PP.draw.display.ctx = canvas.getContext('2d');
+		if (displayHeight !== undefined) {
+			canvas.style.height = displayHeight+'px';
+		}
 		
-		PP.draw.buffer.element = document.createElement('canvas');
-		PP.draw.buffer.ctx = PP.draw.buffer.element.getContext('2d');
-		
-		PP.view.width = PP.draw.display.width;
-		PP.view.height = PP.draw.display.height;
+		PP.view.width = canvas.width || canvas.style.width;
+		PP.view.height = canvas.height || canvas.style.height;
 		
 		window.onkeydown = function(event) {
 			var keyobj = PP.key.number[event.keyCode || event.which];
@@ -590,8 +582,8 @@ var PP = {
 			posx = posx-offsetLeft;
 			posy = posy-offsetTop;
 			
-			PP.mouse.x = (posx/PP.draw.display.width)*PP.view.width+PP.view.x;
-			PP.mouse.y = (posy/PP.draw.display.height)*PP.view.height+PP.view.y;
+			PP.mouse.x = (posx/displayWidth)*PP.view.width+PP.view.x;
+			PP.mouse.y = (posy/displayHeight)*PP.view.height+PP.view.y;
 		};
 		
 		window.onmousedown = function(e) {
@@ -820,7 +812,7 @@ var PP = {
 					// Set up the default mask
 					img.mask = [[-img.xorig,-img.yorig],[img.subWidth-img.xorig,-img.yorig],[img.subWidth-img.xorig,img.height-img.yorig],[-img.xorig,img.height-img.yorig]];
 					
-					img.pattern = PP.draw.buffer.ctx.createPattern(img.imgObj,'repeat');
+					img.pattern = PP.draw.displayCanvas.ctx.createPattern(img.imgObj,'repeat');
 					imgArray.shift();
 					
 					PP.load.completed += 1;
@@ -907,7 +899,7 @@ var PP = {
 		tick: function() {
 			var regObjs = PP.loop.regObjects;
 		
-			PP.draw.clear(PP.draw.buffer.ctx);
+			PP.draw.clear(PP.draw.displayCanvas.ctx);
 			
 			var methodNames = PP.loop.methods;
 			var ilen = methodNames.length;
@@ -969,15 +961,6 @@ var PP = {
 						}
 					}
 				}
-			}
-			
-			PP.draw.clear(PP.draw.display.ctx);
-			// Draw the buffer to the main canvas
-			if (PP.initisOpera) {
-				// Opera doesn't support the width and height arguments for drawImage
-				PP.draw.display.ctx.drawImage(PP.draw.buffer.element,0,0);
-			} else {
-				PP.draw.display.ctx.drawImage(PP.draw.buffer.element,0,0,PP.draw.display.width,PP.draw.display.height);
 			}
 			
 			// Reset the mouse variables for the next loop
@@ -1219,6 +1202,14 @@ PP.Alarm.prototype.stop = function() {
 })();
 
 PP.Sprite.prototype.draw = function(x,y,subimg,angle,hScale,vScale) {
+	if (hScale === undefined) {
+		hScale = 1;
+	}
+	
+	if (vScale === undefined) {
+		vScale = 1;
+	}
+	
 	if (subimg === undefined) {
 		subimg = 0;
 	}
@@ -1230,12 +1221,12 @@ PP.Sprite.prototype.draw = function(x,y,subimg,angle,hScale,vScale) {
 		xx = x-PP.view.x,
 		yy = y-PP.view.y;
 	
-	PP.draw.buffer.ctx.save();
+	PP.draw.displayCanvas.ctx.save();
 	
 	if (angle !== undefined && angle !== 0) {
-		PP.draw.buffer.ctx.translate(xx,yy);
-		PP.draw.buffer.ctx.rotate(angle);
-		PP.draw.buffer.ctx.translate(-xx,-yy);
+		PP.draw.displayCanvas.ctx.translate(xx,yy);
+		PP.draw.displayCanvas.ctx.rotate(angle);
+		PP.draw.displayCanvas.ctx.translate(-xx,-yy);
 	}
 	
 	var drawWidth = Math.abs(hScale)*subWidth,
@@ -1247,18 +1238,18 @@ PP.Sprite.prototype.draw = function(x,y,subimg,angle,hScale,vScale) {
 	if (hScale < 0 && vScale < 0) {
 		xx = -xx-drawWidth;
 		yy = -yy-drawHeight;
-		PP.draw.buffer.ctx.scale(-1,-1);
+		PP.draw.displayCanvas.ctx.scale(-1,-1);
 	} else if (hScale < 0) {
 		xx = -xx-drawWidth;
-		PP.draw.buffer.ctx.scale(-1,1);
+		PP.draw.displayCanvas.ctx.scale(-1,1);
 	} else if (vScale < 0) {
 		yy = -yy-drawHeight;
-		PP.draw.buffer.ctx.scale(1,-1);
+		PP.draw.displayCanvas.ctx.scale(1,-1);
 	}
 	
-	PP.draw.buffer.ctx.drawImage(imgObj,subWidth*subimg,0,subWidth,height,xx,yy,drawWidth,drawHeight);
+	PP.draw.displayCanvas.ctx.drawImage(imgObj,subWidth*subimg,0,subWidth,height,xx,yy,drawWidth,drawHeight);
 	
-	PP.draw.buffer.ctx.restore();
+	PP.draw.displayCanvas.ctx.restore();
 
 	return this;
 };
@@ -1275,13 +1266,13 @@ PP.Sprite.prototype.nextFrame = function(subimg) {
 
 // PP.view.width
 PP.view.watch('width',function(prop,oldvalue,value) {
-	PP.draw.buffer.element.setAttribute('width',value);
+	PP.draw.displayCanvas.width = value;
 	return value;
 });
 
 // PP.view.height
 PP.view.watch('height',function(prop,oldvalue,value) {
-	PP.draw.buffer.element.setAttribute('height',value);
+	PP.draw.displayCanvas.height = value;
 	return value;
 });
 
