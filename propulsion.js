@@ -899,7 +899,7 @@ var PP = {
 		tick: function() {
 			var regObjs = PP.loop.regObjects;
 		
-			PP.draw.clear(PP.draw.displayCanvas.ctx);
+			//PP.draw.clear(PP.draw.displayCanvas.ctx);
 			
 			var methodNames = PP.loop.methods;
 			var ilen = methodNames.length;
