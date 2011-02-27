@@ -720,8 +720,8 @@ var PP = {
 			canvas.style.height = displayHeight+'px';
 		}
 		
-		PP.view.width = canvas.width || canvas.style.width;
-		PP.view.height = canvas.height || canvas.style.height;
+		PP.view.width = canvas.width || displayWidth;
+		PP.view.height = canvas.height || displayHeight;
 		
 		window.onkeydown = function(event) {
 			var keyobj = PP.key.number[event.keyCode || event.which];
