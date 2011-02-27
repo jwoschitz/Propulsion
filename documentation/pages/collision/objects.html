@@ -1,0 +1,21 @@
+<h2>collision.object</h2>
+
+<div class="usage">
+<p>collision.object(o1,o2,enableMTV,ratioMTV,enableCPoint);</p>
+</div>
+
+<div class="parameters">
+<p>o1: [object] The first object to check for a collision.</p>
+<p>o2: [object] The second object to check for a collision.</p>
+<p>enableMTV: (Optional) [boolean] If true, the objects will be moved the minimum distance possible for collision to no longer occur.</p>
+<p>ratioMTV: (Optional) [number] This determines the ratio of how the MTV (minimum translation vector) will be distributed between both objects. If this value is 1, only the first object will be moved until the collision is resolved. If this value is 0, only the second object is moved to resolve the collision. Any number between 0 and 1 is allowed. If no value is passed for this parameter, a value of 1 is used. If the number is not between 0 and 1, a dinosaur will eat your cat.</p>
+<p>enableCPoint: (Optional) [boolean] If this parameter is true, then the point at which the objects touch after the MTV has been applied will be returned in an object. The returned object contains x and y properties that store the collision point. Note that the enableMTV parameter must be true for the contact point to be returned.</p>
+</div>
+
+<div class="return">
+<p>[boolean] or [object]. If enableMTV and enableCPoint are true, and the objects are colliding, then an object containing the contact point of the objects after the MTV has been applied will be returned.</p>
+<p>Otherwise, a value of true will be returned if the objects are colliding.</p>
+<p>A value of false will be returned if the objects are not colliding.</p>
+</div>
+
+<p>See also: the <span class="italic">mask</span> and <span class="italic">angle</span> object properties.</p>

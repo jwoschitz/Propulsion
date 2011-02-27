@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2010 Caleb Helbling
+Copyright (c) 2011 Caleb Helbling
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -101,6 +101,91 @@ Object.accessors(Object.prototype,'proto',function() {
 	return value;
 });
 
+Math.vector = {
+	add: function(v1,v2) {
+		return [v1[0]+v2[0],v1[1]+v2[1]];
+	},
+
+	scalar: function(v,s) {
+		return [v[0]*s,v[1]*s];
+	},
+
+	dot: function(v1,v2) {
+		return v1[0]*v2[0]+v1[1]*v2[1];
+	},
+
+	cross: function(v1,v2) {
+		return v1[0]*v2[1]-v1[1]*v2[0];
+	},
+
+	getMagnitude: function(v) {
+		var x = v[0],
+			y = v[1];
+		return Math.sqrt(x*x+y*y);
+	},
+
+	getMagnitude2: function(v) {
+		var x = v[0],
+			y = v[1];
+		
+		return x*x+y*y
+	},
+	
+	setMagnitude: function(v,mag) {
+		if (mag === 0) {
+			v[0] = 0;
+			v[1] = 0;
+			
+			return v;
+		}
+		
+		var x = v[0],
+			y = v[1];
+		
+		if (x !== 0 || y !== 0) {
+			var oldMag = Math.vector.getMagnitude(v),
+				xRatio = oldMag/x,
+				yRatio = oldMag/y;
+			
+			v[0] = mag/xRatio;
+			v[1] = mag/yRatio;
+		}
+		
+		return v;
+	},
+	
+	normalize: function(vector) {
+		var x = vector[0],
+			y = vector[1],
+			len = Math.sqrt(x*x+y*y);
+		
+		vector[0] = x/len;
+		vector[1] = y/len;
+		
+		return vector;
+	},
+
+	project: function(a,b) {
+		var newVector = [b[0],b[1]];
+		
+		Math.vector.setMagnitude(newVector,Math.vector.projectMagnitude(a,b));
+		
+		return newVector;
+	},
+	
+	projectMagnitude: function(a,b) {
+		return Math.vector.scalar(b,Math.vector.dot(a,b)/Math.vector.getMagnitude2(b));
+	},
+	
+	leftNormal: function(v) {
+		return [-v[1],v[0]];
+	},
+	
+	rightNormal: function(v) {
+		return [v[1],-v[0]];
+	}
+};
+
 Math.choose = function() {
 	return arguments[Math.floor(Math.random()*arguments.length)];
 };
@@ -120,6 +205,12 @@ Math.pointDistance = function(x1,y1,x2,y2) {
 		s2 = y1-y2;
 	return Math.sqrt(s1*s1+s2*s2);
 };
+
+Math.pointDistance2 = function(x1,y1,x2,y2) {
+	var s1 = x1-x2,
+		s2 = y1-y2;
+	return s1*s1+s2*s2;
+}
 
 Math.degToRad = function(deg) {
 	return deg*0.017453292519943295;
@@ -161,56 +252,58 @@ var PP = {
 	},
 	
 	collision: {
-		masks: function(mask1,x1,y1,angle1,mask2,x2,y2,angle2) {
-			return PP.collision.sat(PP.collision.resolveShape(mask1,x1,y1,angle1),PP.collision.resolveShape(mask2,x2,y2,angle2));
+		objects: function(o1,o2,enableMTV,ratioMTV,enableCPoint) {
+			return PP.collision.sat(PP.collision.resolveShape(o1.mask,o1.x,o1.y,o1.angle || 0),PP.collision.resolveShape(o2.mask,o2.x,o2.y,o2.angle),o1,o2,enableMTV,ratioMTV,enableCPoint);
 		},
 		
-		point: function(mask,mx,my,angle,px,py) {
-			return PP.collision.sat(PP.collision.resolveShape(mask,mx,my,angle),[[px,py]]);
+		point: function(o,px,py,enableMTV) {
+			var o2 = {
+				mask: [[px,py]],
+				angle: 0,
+				x: px,
+				y: py
+			};
+			
+			return PP.collision.sat(PP.collision.resolveShape(o.mask,o.x,o.y,o.angle || 0),o2.mask,o,o2,enableMTV,1,false);
 		},
 		
-		rectangle: function(mask,mx,my,angle,x1,y1,width,height) {
+		rectangle: function(o,x1,y1,width,height,enableMTV,enableCPoint) {
 			var x2 = x1+width,
-				y2 = y1+height;
-				
-			return PP.collision.sat(PP.collision.resolveShape(mask,mx,my,angle),[[x1,y1],[x2,y1],[x2,y2],[x1,y2]]);
+				y2 = y1+height,
+				o2 = {
+					mask: [[x1,y1],[x2,y1],[x2,y2],[x1,y2]],
+					angle: 0,
+					x: x1,
+					y: y1
+				};
+			
+			return PP.collision.sat(PP.collision.resolveShape(o.mask,o.x,o.y,o.angle || 0),o2.mask,o,o2,enableMTV,1,enableCPoint);
 		},
 		
-		line: function(mask,mx,my,angle,x1,y1,x2,y2) {
-			return PP.collision.sat(PP.collision.resolveShape(mask,mx,my,angle),[[x1,y1],[x2,y2]]);
+		segment: function(o,x1,y1,x2,y2,enableMTV,enableCPoint) {
+			var o2 = {
+				mask: [[x1,y1],[x2,y2]],
+				angle: 0,
+				x: x1,
+				y: y1
+			};
+			
+			return PP.collision.sat(PP.collision.resolveShape(o.mask,o.x,o.y,o.angle || 0),o2.mask,o,o2,enableMTV,1,enableCPoint);
 		},
 		
 		// The SAT algorithm is capable of collision detection between points,
 		// line segments, and any concave polygon
-		sat: (function() {
-			var vector = {
-				normalize: function(vector) {
-					var x = vector[0],
-						y = vector[1],
-						len = Math.sqrt(x*x+y*y);
-					
-					vector[0] = x/len;
-					vector[1] = y/len;
-					
-					return vector;
-				},
-				
-				dot: function(a,b) {
-					return a[0]*b[0]+a[1]*b[1];
-				},
-				
-				leftNormal: function(v) {
-					return [-v[1],v[0]];
-				}
-			};
-			
-			var getAxes = function(s,array) {
+		sat: (function() {			
+			var getAxes = function(s,arr) {
 				// s = shape
-				var p1,p2,edge;
-				
-				if (s.length !== 1) {
-					for (var i = 0; i < s.length; i++) {
-						if (s.length === 2 && i === 1) {
+				var p1,p2,edge,
+					slen = s.length,
+					slen1 = slen-1;
+					
+				if (slen !== 1) {
+					var alen = arr.length;
+					for (var i = 0; i < slen; i++) {
+						if (slen === 2 && i === 1) {
 							break;
 						}
 						
@@ -218,25 +311,30 @@ var PP = {
 						p1 = s[i];
 						
 						// Get the next vertex
-						p2 = s[i+1 === s.length ? 0 : i+1];
+						p2 = s[i === slen1 ? 0 : i+1];
 						
 						// Subtract the two to get the edge vector
 						edge = [p1[0]-p2[0],p1[1]-p2[1]];
 						
 						// The axis will be the normal of the edge
-						array.push(vector.normalize(vector.leftNormal(edge)));
+						var axis = Math.vector.normalize(Math.vector.leftNormal(edge));
+						axis.shape = s;
+						axis.p1 = p1;
+						axis.p2 = p2;
+						arr[alen] = axis;
+						alen++;
 					}
 				}
 				
-				return array;
+				return arr;
 			};
 			
-			var project = function(shape,axis) {
+			var projectShape = function(shape,axis) {
 				var min = null,
 					max = null;
-					
+				
 				for (var i = 0; i < shape.length; i++) {
-					var p = vector.dot(axis,shape[i]);
+					var p = Math.vector.dot(axis,shape[i]);
 					
 					if (p < min || min === null) {
 						min = p;
@@ -253,20 +351,137 @@ var PP = {
 				};
 			};
 			
-			return function(shape1,shape2) {
+			return function(shape1,shape2,o1,o2,enableMTV,ratioMTV,enableCPoint) {
 				// Determine the axes
 				var axes = getAxes(shape1,[]);
 				getAxes(shape2,axes);
 				
+				var minInterval = null,
+					minAxis = [];
+				
 				// Project each shape onto each axis			
 				var proj1,proj2;
+				
 				for (var i = 0; i < axes.length; i++) {
-					proj1 = project(shape1,axes[i]);
-					proj2 = project(shape2,axes[i]);
+					var axis = axes[i];
+					proj1 = projectShape(shape1,axis);
+					proj2 = projectShape(shape2,axis);
 					
 					// Check for overlaps between the projections
 					if (!((proj1.min >= proj2.min && proj1.min <= proj2.max) || (proj1.max >= proj2.min && proj1.max <= proj2.max) || (proj2.min >= proj1.min && proj2.min <= proj1.max) || (proj2.max >= proj1.min && proj2.max <= proj1.max))) {
+						// No overlap. Return early
 						return false;
+					} else {
+						// Save data to build the MTV later
+						var interval = Math.min(Math.abs(proj1.max-proj2.min),Math.abs(proj1.min-proj2.max));
+						
+						// Check for containment
+						/*if ((proj2.min >= proj1.min && proj2.max <= proj1.max) || (proj2.min <= proj1.min && proj2.max >= proj1.max)) {
+						}*/
+						
+						if (interval === minInterval) {
+							minAxis[minAxis.length] = axis;
+						}
+						
+						if (interval < minInterval || minInterval === null) {
+							minInterval = interval;
+							minAxis.length = 0;
+							minAxis[0] = axis;
+						}
+					}
+				}
+				
+				if (enableMTV === true && o1 !== undefined && o2 !== undefined) {
+					if (ratioMTV === undefined) {
+						var ratioMTV = 1;
+					}
+					
+					// Get the MTV
+					var mtv = Math.vector.setMagnitude(minAxis[0],minInterval),
+						d = [o1.x-o2.x,o1.y-o2.y];
+					
+					if (Math.vector.dot(d,minAxis[0]) < 0) {
+						mtv[0] = -mtv[0];
+						mtv[1] = -mtv[1];
+					}
+					
+					if (o2 !== undefined) {
+						var ratio2 = ratioMTV - 1;
+						
+						o2.x += mtv[0]*ratio2;
+						o2.y += mtv[1]*ratio2;
+					}
+					
+					o1.x += mtv[0]*ratioMTV;
+					o1.y += mtv[1]*ratioMTV;
+					
+					for (var i = 0; i < shape1.length; i++) {
+						var point = shape1[i];
+						point[0] += mtv[0];
+						point[1] += mtv[1];
+					}
+					
+					if (enableCPoint === true) {
+						// Get the contact point
+						var minVertex = null,
+							minDistance = null;
+						
+						var breakout = false;
+						outer : for (var i = 0; i < minAxis.length; i++) {
+							var otherShape,
+								thisAxis = minAxis[i];
+							
+							if (thisAxis.shape === shape1) {
+								otherShape = shape2;
+							} else {
+								otherShape = shape1;
+							}
+							
+							var b2 = Math.pointDistance2(thisAxis.p1[0],thisAxis.p1[1],thisAxis.p2[0],thisAxis.p2[1]);
+							
+							// Loop through every point of the otherShape to get the contact point.
+							// The contact point will be one of the verticies of the other shape
+							for (var j = 0; j < otherShape.length; j++) {
+								var vertex = otherShape[j];
+								
+								if (minAxis.length === 1) {
+									var h = Math.pointDistance2(vertex[0],vertex[1],thisAxis.p1[0],thisAxis.p1[1])+Math.pointDistance2(vertex[0],vertex[1],thisAxis.p2[0],thisAxis.p2[1]);
+									
+									if (h === b2) {
+										breakout = true;
+									}
+								} else {
+									// Use a modified version of Heron's formula
+									var a2 = Math.pointDistance2(vertex[0],vertex[1],thisAxis.p1[0],thisAxis.p1[1]),
+										c2 = Math.pointDistance2(vertex[0],vertex[1],thisAxis.p2[0],thisAxis.p2[1]);
+									
+									var calc1 = a2 + b2 + c2;
+										calc1 = calc1*calc1;
+									
+									var calc2 = (a2*a2 + b2*b2 + c2*c2)*2;
+									
+									var h = (calc1-calc2)/(4*b2);
+									
+									if (h === 0) {
+										breakout = true;
+									}
+								}
+								
+								if (minDistance === null || h < minDistance) {
+									minDistance = h;
+									minVertex = vertex;
+									
+									if (breakout === true) {
+										break outer;
+									}
+								}
+							}
+						}
+						
+						return {
+							x: minVertex[0],
+							y: minVertex[1]
+						};
 					}
 				}
 				
@@ -810,7 +1025,9 @@ var PP = {
 					img.subWidth = img.width/img.subimg;
 					
 					// Set up the default mask
-					img.mask = [[-img.xorig,-img.yorig],[img.subWidth-img.xorig,-img.yorig],[img.subWidth-img.xorig,img.height-img.yorig],[-img.xorig,img.height-img.yorig]];
+					if (img.mask === undefined) {
+						img.mask = [[-img.xorig,-img.yorig],[img.subWidth-img.xorig,-img.yorig],[img.subWidth-img.xorig,img.height-img.yorig],[-img.xorig,img.height-img.yorig]];
+					}
 					
 					img.pattern = PP.draw.displayCanvas.ctx.createPattern(img.imgObj,'repeat');
 					imgArray.shift();
@@ -1213,6 +1430,8 @@ PP.Sprite.prototype.draw = function(x,y,subimg,angle,hScale,vScale) {
 	if (subimg === undefined) {
 		subimg = 0;
 	}
+
+	subimg = Math.floor(subimg);
 	
 	var imgObj = this.imgObj,
 		height = this.height,
@@ -1254,14 +1473,24 @@ PP.Sprite.prototype.draw = function(x,y,subimg,angle,hScale,vScale) {
 	return this;
 };
 
-PP.Sprite.prototype.nextFrame = function(subimg) {
-	subimg += 1;
-	
-	if (subimg === this.subimg) {
-		return 0;
-	} else {
-		return subimg;
+PP.Sprite.prototype.nextFrame = function(subimg,increment) {
+	if (increment === undefined) {
+		var increment = 1;
 	}
+	
+	subimg += increment;
+
+	var subimgNum = this.subimg;
+	
+	while (subimg >= subimgNum) {
+		subimg -= subimgNum;
+	}
+
+	while (subimg < 0) {
+		subimg += subimgNum;
+	}
+	
+	return subimg;
 };
 
 // PP.view.width

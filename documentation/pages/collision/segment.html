@@ -1,0 +1,23 @@
+<h2>collision.segment</h2>
+
+<div class="usage">
+<p>collision.segment(obj,x1,y1,x2,y2,enableMTV,enableCPoint);</p>
+</div>
+
+<div class="parameters">
+<p>obj: [object] The object to check for a collision.</p>
+<p>x1: [number] The horizontal component of the first point of the segment.</p>
+<p>y1: [number] The vertical component of the first point of the segment.</p>
+<p>x2: [number] The horizontal component of the second point of the segment.</p>
+<p>y2: [number] The vertical component of the second point of the segment.</p>
+<p>enableMTV: (Optional) [boolean] If true, the object will be moved along the minimum distance possible for collision to no longer occur.</p>
+<p>enableCPoint: (Optional) [boolean] If this parameter is true, then the point at which the segment and object touch after the MTV has been applied will be returned in an object. The returned object contains x and y properties that store the collision point. Note that the enableMTV parameter must be true for the contact point to be returned.</p>
+</div>
+
+<div class="return">
+<p>[boolean] or [object]. If enableMTV and enableCPoint are true, and the line segment and object are colliding, then an object containing the contact point of the object and the line segment after the MTV has been applied will be returned.</p>
+<p>Otherwise, a value of true will be returned if the objects are colliding.</p>
+<p>A value of false will be returned if the objects are not colliding.</p>
+</div>
+
+<p>See also: the <span class="italic">mask</span> and <span class="italic">angle</span> object properties.</p>

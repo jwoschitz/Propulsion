@@ -7,6 +7,10 @@ The shape formed by the points must be convex.</p>
 and the second element representing the y coordinate of the point. The points are relative coordinates. When a collision detection function is called, the 
 points forming the mask are measured relative from the passed point.</p>
 
+<p>The mask must be "wrapped" in a clockwise direction for the Minimum Translation Vector feature of collision detection to work properly. Each consecutive point must be clockwise from the previous point. (See the image below)</p>
+
+<p><img src="images/wrapping.png" alt="Wrapping example" /></p>
+
 <p>A common task is creating a mask to overlay a sprite. Here is an example of making a mask for a sprite.</p>
 
 <p><img src="images/mask.png" alt="Example" class="center" /></p>

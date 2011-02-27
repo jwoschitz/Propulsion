@@ -57,10 +57,10 @@
 			<li>
 				<div class="title">collision</div>
 				<ul>
-					<li class="item" onclick="loadPage('collision/line');">line</li>
-					<li class="item" onclick="loadPage('collision/masks');">masks</li>
+					<li class="item" onclick="loadPage('collision/objects');">objects</li>
 					<li class="item" onclick="loadPage('collision/point');">point</li>
 					<li class="item" onclick="loadPage('collision/rectangle');">rectangle</li>
+					<li class="item" onclick="loadPage('collision/segment');">segment</li>
 				</ul>
 			</li>
 			
@@ -71,6 +71,7 @@
 					<li class="item" onclick="loadPage('draw/circle');">circle</li>
 					<li class="item" onclick="loadPage('draw/clear');">clear</li>
 					<li class="item" onclick="loadPage('draw/color');">color</li>
+					<li class="item" onclick="loadPage('draw/composite');">composite</li>
 					<li class="item" onclick="loadPage('draw/cursor');">cursor</li>
 					<li class="item" onclick="loadPage('draw/depth');">depth</li>
 					<li class="item" onclick="loadPage('draw/font');">font</li>
@@ -124,11 +125,27 @@
 			<li>
 				<div class="title">Math</div>
 				<ul>
+					<li>
+						<div class="title">vector</div>
+						<ul>
+							<li class="item" onclick="loadPage('Math/vector/Vector_Specification');">Vector Specification</li>
+							<li class="item" onclick="loadPage('Math/vector/add');">add</li>
+							<li class="item" onclick="loadPage('Math/vector/cross');">cross</li>
+							<li class="item" onclick="loadPage('Math/vector/dot');">dot</li>
+							<li class="item" onclick="loadPage('Math/vector/getMagnitude');">getMagnitude</li>
+							<li class="item" onclick="loadPage('Math/vector/getMagnitude2');">getMagnitude2</li>
+							<li class="item" onclick="loadPage('Math/vector/project');">project</li>
+							<li class="item" onclick="loadPage('Math/vector/projectMagnitude');">projectMagnitude</li>
+							<li class="item" onclick="loadPage('Math/vector/scalar');">scalar</li>
+							<li class="item" onclick="loadPage('Math/vector/setMagnitude');">setMagnitude</li>
+						</ul>
+					</li>
 					<li class="item" onclick="loadPage('Math/choose');">choose</li>
 					<li class="item" onclick="loadPage('Math/radToDeg');">radToDeg</li>
 					<li class="item" onclick="loadPage('Math/degToRad');">degToRad</li>
 					<li class="item" onclick="loadPage('Math/pointDirection');">pointDirection</li>
 					<li class="item" onclick="loadPage('Math/pointDistance.html')";>pointDistance</li>
+					<li class="item" onclick="loadPage('Math/pointDistance2.html')";>pointDistance2</li>
 					<li class="item" onclick="loadPage('Math/polarToRectX');">polarToRectX</li>
 					<li class="item" onclick="loadPage('Math/polarToRectY');">polarToRectY</li>
 				</ul>
@@ -146,7 +163,9 @@
 			<li>
 				<div class="title">Object Properties</div>
 				<ul>
+					<li class="item" onclick="loadPage('Object_Properties/angle');">angle</li>
 					<li class="item" onclick="loadPage('Object_Properties/depth');">depth</li>
+					<li class="item" onclick="loadPage('Object_Properties/mask');">mask</li>
 					<li class="item" onclick="loadPage('Object_Properties/proto');">proto</li>
 					<li class="item" onclick="loadPage('Object_Properties/persistant');">persistant</li>
 					<li class="item" onclick="loadPage('Object_Properties/registered');">registered</li>

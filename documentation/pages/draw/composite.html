@@ -1,0 +1,25 @@
+<h2>draw.composite</h2>
+
+<div class="usage">
+	<p>draw.composite = type;</p>
+</div>
+
+<div class="property">
+<p>[string] The type of composite operation. The possible values are listed below:<br />
+<ul>
+	<li>source-atop: Display the source image wherever both images are opaque. Display the destination image wherever the destination image is opaque but the source image is transparent. Display transparency elsewhere.</li>
+	<li>source-in: Display the source image wherever both the source image and destination image are opaque. Display transparency elsewhere.</li>
+	<li>source-out: Display the source image wherever the source image is opaque and the destination image is transparent. Display transparency elsewhere.</li>
+	<li>source-over: (default) Display the source image wherever the source image is opaque. Display the destination image elsewhere.</li>
+	<li>destination-atop: Same as source-atop but using the destination image instead of the source image and vice versa.</li>
+	<li>destination-in: Same as source-in but using the destination image instead of the source image and vice versa.</li>
+	<li>destination-out: Same as source-out but using the destination image instead of the source image and vice versa.</li>
+	<li>destination-over: Same as source-over but using the destination image instead of the source image and vice versa.</li>
+	<li>lighter: Display the sum of the source image and destination image, with color values approaching 255 (100%) as a limit.</li>
+	<li>copy: Display the source image instead of the destination image.</li>
+	<li>xor: Exclusive OR of the source image and destination image.</li>
+</ul>
+</p>
+</div>
+
+<p>draw.composite determines how shapes and sprites are drawn over the existing drawings.</p>

@@ -1,7 +1,7 @@
 (function() {
 	var spr=PP.spr,rm=PP.rm,obj=PP.obj,snd=PP.snd,al=PP.al,global=PP.global,Alarm=PP.Alarm,collision=PP.collision,draw=PP.draw,init=PP.init,key=PP.key,load=PP.load,loop=PP.loop,mouse=PP.mouse,physics=PP.physics,Sound=PP.Sound,SoundEffect=PP.SoundEffect,Sprite=PP.Sprite,view=PP.view,walkDown=PP.walkDown;
 	
-	init('game');
+	init('game',640,480);
 	loop.rate = 30;
 
 	// The balloon object is created to better organize the sprites
@@ -45,7 +45,7 @@
 					// mouse.left.down holds a value of true if the left mouse button has been
 					// pressed down since the end of the last loop
 					// The collision.point function determines if a point lies within a mask.
-					if (mouse.left.down && collision.point(t.mask,t.x,t.y,0,mouse.x,mouse.y)) {
+					if (mouse.left.down && collision.point(t,mouse.x,mouse.y,false)) {
 						global.score += t.vspeed;
 						loop.remove(t);
 					}

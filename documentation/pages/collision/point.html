@@ -1,14 +1,18 @@
 <h2>collision.point</h2>
 
 <div class="usage">
-<p>collision.point(mask,mx,my,angle,px,py);</p>
+<p>collision.point(obj,px,py,enableMTV);</p>
 </div>
 
 <div class="parameters">
-<p>mask: [array] The mask to check for a collision.</p>
-<p>mx: [number] The position of the mask horizontally within space.</p>
-<p>my: [number] The position of the mask vertically within space.</p>
-<p>angle: [number] Rotation of the mask.</p>
-<p>px: [number] Vertical component of the point to see if it lies within the mask.</p>
-<p>py: [number] Horizontal component of the point to see if it lies within the mask.</p>
+<p>o1: [object] The object to check for a collision.</p>
+<p>px: [number] Horizontal position of the point to check.</p>
+<p>py: [number] Vertical position of the point to check.</p>
+<p>enableMTV: (Optional) [boolean] If true, the objects will be moved along the minimum distance possible for collision to no longer occur.</p>
 </div>
+
+<div class="return">
+<p>[boolean] True will be returned if the point is within the object, and false will be returned if it is outside the object.</p>
+</div>
+
+<p>See also: the <span class="italic">mask</span> and <span class="italic">angle</span> object properties.</p>
